@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zenora Mining Tracker</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="container">
+  <header>
+    <h1>Zenora Mining Tracker</h1>
+    <p class="subtitle">Lacak sesi mining 8 jam, reward, dan tugas harian Zenora.</p>
+    <p class="date" id="todayDate"></p>
+  </header>
+
+  <!-- Totals -->
+  <section class="card totals" aria-label="Totals">
+    <div class="stat">
+      <span class="stat-label">Total Node Points</span>
+      <span class="stat-value" id="totalPoints">0.0</span>
+    </div>
+    <div class="stat">
+      <span class="stat-label">Total $ZNR</span>
+      <span class="stat-value" id="totalZnr">0.0</span>
+    </div>
+    <div class="stat">
+      <span class="stat-label">Rewards logged</span>
+      <span class="stat-value" id="rewardCount">0</span>
+    </div>
+    <div class="stat">
+      <span class="stat-label">Sessions claimed</span>
+      <span class="stat-value" id="sessionsClaimed">0</span>
+    </div>
+  </section>
+
+  <!-- Mining timer -->
+  <section class="card" aria-label="Mining session timer">
+    <h2>Mining Session — 8 Hours</h2>
+    <p class="timer-status" id="timerStatus">Ready to start a new 8-hour session.</p>
+    <div class="timer-display" id="timerDisplay" aria-live="polite">08:00:00</div>
+    <div class="progress" aria-hidden="true"><div class="progress-bar" id="sessionProgress" style="width: 0%"></div></div>
+    <p class="progress-text" id="progressText">0% complete</p>
+
+    <div class="button-row">
+      <button id="startBtn" type="button">Start Session</button>
+      <button id="claimBtn" type="button" disabled>Claim Session</button>
+      <button id="resetBtn" type="button" class="secondary">Reset</button>
+    </div>
+    <p class="hint">Claim is enabled only when the 8-hour timer reaches 00:00:00.</p>
+    <button id="simulateFinishBtn" type="button" class="link-button">Test: finish session in 3 seconds</button>
+    <p class="message" id="timerMessage" role="status"></p>
+  </section>
+
+  <!-- Add reward -->
+  <section class="card" aria-label="Add reward">
+    <h2>Log Reward</h2>
+    <form id="rewardForm">
+      <label for="taskName">Task name</label>
+      <input id="taskName" name="taskName" type="text" placeholder="e.g. Watch the Zenora Node guide video" required>
+
+      <div class="form-row">
+        <div>
+          <label for="znrAmount">$ZNR earned</label>
+          <input id="znrAmount" name="znrAmount" type="number" min="0" step="0.1" placeholder="5.0" required>
+        </div>
+        <div>
+          <label for="pointsAmount">Node Points earned</label>
+          <input id="pointsAmount" name="pointsAmount" type="number" min="0" step="0.1" placeholder="2.0" required>
+        </div>
+      </div>
+
+      <label for="rewardDate">Date</label>
+      <input id="rewardDate" name="rewardDate" type="date" required>
+
+      <button id="addRewardBtn" type="submit">Add Reward</button>
+      <p class="message" id="rewardMessage" role="status"></p>
+    </form>
+
+    <h3>Reward History</h3>
+    <p id="emptyRewards">No rewards logged yet. Add your first reward above.</p>
+    <ul id="rewardList" class="reward-list"></ul>
+  </section>
+
+  <!-- Daily checklist -->
+  <section class="card" aria-label="Daily rewards checklist">
+    <h2>Daily Rewards Checklist</h2>
+    <p id="checklistProgress">0 of 5 done</p>
+    <ul id="checklist" class="checklist"></ul>
+    <button id="resetChecklistBtn" type="button" class="secondary">Reset Checklist</button>
+  </section>
+
+  <footer>
+    <p>Data is saved in your browser (localStorage). No account needed. Built for the Kane CLI Online Hackathon.</p>
+  </footer>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
